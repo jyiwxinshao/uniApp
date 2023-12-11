@@ -1,0 +1,55 @@
+{
+	"pages": [{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "uni-app"
+		}
+	},
+	{
+		"path" : "pages/my/my",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"enablePullDownRefresh" : false
+		}
+	},
+	{
+		"path" : "pages/service/service",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"enablePullDownRefresh" : false
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": {
+		"list": [{
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home-fill.png",
+				"text": "首页",
+				"pagePath": "pages/index/index"
+			},
+			{
+				"iconPath": "static/gallery.png",
+				"selectedIconPath": "static/gallery-fill.png",
+				"text": "全部服务",
+				"pagePath": "pages/service/service"
+			},
+			{
+				"iconPath": "static/cry.png",
+				"selectedIconPath": "static/smile-fill.png",
+				"text": "个人中心",
+				"pagePath": "pages/my/my"
+			}
+		],
+		"selectedColor": "black"
+	}
+}
