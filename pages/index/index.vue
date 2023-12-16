@@ -1,5 +1,8 @@
 <template>
 	<view class="container">
+		<uni-easyinput v-model="value" placeholder="想看什么,搜索一下" type="text" confirmType="search" suffixIcon="search"
+			@iconClick="search" class="search" />
+
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
 			style="width: 100%;height: 250rpx;">
 			<swiper-item v-for="(item,index) in swiperData">
@@ -37,6 +40,7 @@
 				newsClass: [], // 新闻分类数据
 				newsClass1: [], // 分段器上显示的数据
 				newsList: [], // 新闻列表数据
+				value: '' // 输入框输入数据
 			}
 		},
 		methods: {
@@ -69,11 +73,11 @@
 			changeList(e) {
 				this.getNewsList(this.newsClass[e.currentIndex].id);
 			},
-			
+
 			// 前往新闻详情页面
 			toContent(id) {
 				uni.navigateTo({
-					url: '/pages/content?id=' + id,
+					url: '/pages/content/content?id=' + id,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
@@ -87,23 +91,48 @@
 				})
 			},
 
-			// 前往服务详情页面
+			// 搜索
+			search() {
+				const inputValue = this.value;
+				if (inputValue == "") {
+					uni.showToast({
+						title: "请输入内容！",
+						icon: "none"
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pages/search/search?inputValue=' + inputValue,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+			},
+
+			// 前往具体服务页
 			toService1(name) {
-				if (name == '青年驿站') {
-					let token = uni.getStorageSync("mytoken");
-					if (token) {
+				let token = uni.getStorageSync("mytoken");
+				if (token) {
+					if (name == '青年驿站') {
 						uni.navigateTo({
-							url: '/pages/youth/index/index?token=' + token,
+							url: '/pages/youthStation/index?token=' + token,
 							success: res => {},
 							fail: () => {},
 							complete: () => {}
 						});
-					} else {
-						uni.showToast({
-							title: '需要登陆才能访问！',
-							icon: 'none'
-						});
+					} else if (name == '物流查询') {
+						uni.navigateTo({
+							url: '/pages/logistics/index?token=' + token,
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						})
 					}
+				} else {
+					uni.showToast({
+						title: '需要登陆才能访问！',
+						icon: 'none'
+					});
 				}
 			}
 		},
@@ -111,7 +140,7 @@
 		onLoad() {
 			uni.setNavigationBarTitle({
 				title: "智慧城市平台"
-			})
+			});
 
 			//获取主页轮播数据
 			uni.request({
@@ -181,7 +210,7 @@
 
 		.box {
 			height: 100%;
-			padding: 5rpx 0;
+			padding: 8rpx 0;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -195,6 +224,10 @@
 			text {
 				white-space: nowrap;
 			}
+		}
+
+		.search {
+			padding-bottom: 10px;
 		}
 	}
 </style>
